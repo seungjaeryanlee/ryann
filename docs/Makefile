@@ -15,8 +15,7 @@ help:
 .PHONY: help Makefile
 
 autodoc:
-	cd source/
-	sphinx-apidoc -f -o source/ ../ryann/
+	sphinx-apidoc -f -o source/ ../ryann/ ../ryann/tests/
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
