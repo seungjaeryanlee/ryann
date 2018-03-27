@@ -49,7 +49,7 @@ def shallow_nn(X, Y, n_h, num_iter):
     n_y = Y.shape[0]
 
     # 1. Initialize parameters W1, b1, W2, b2
-    parameters = initialize_parameters(n_x, n_h, n_y)
+    parameters = _initialize_parameters(n_x, n_h, n_y)
 
     # 2. Run gradient descent num_iter times
     for i in range(0, num_iter):
@@ -70,3 +70,24 @@ def shallow_nn(X, Y, n_h, num_iter):
             print('Cost after iteration %i: %f' %(i, cost))
 
     return parameters
+
+def _initialize_parameters(n_x, n_h, n_y):
+    """
+    Initializes parameters (weight matrices and bias vectors) based on given layer sizes.
+
+    Parameters
+    ----------
+    n_x : int
+        Number of units in the input layer.
+    n_h : int
+        Number of units in the hidden layer.
+    n_y : int
+        Number of units in the output layer.
+
+    Returns
+    -------
+    parameters : dict
+        A dictionary with keys W1, b1, W2, b2 with b1, b2 initialized as zero vectors and W1, W2
+        initialized as a random matrix.
+    """
+    return {}
