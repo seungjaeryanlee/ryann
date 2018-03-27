@@ -127,7 +127,7 @@ def _forward_propagation(X, parameters):
     Z1 = np.dot(parameters['W1'], X) + parameters['b1']
     A1 = np.tanh(Z1)
     Z2 = np.dot(parameters['W2'], A1) + parameters['b2']
-    A2 = np.tanh(Z2)
+    A2 = sigmoid(Z2)
 
     cache = {
         'Z1': Z1,
