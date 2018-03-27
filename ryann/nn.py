@@ -90,4 +90,16 @@ def _initialize_parameters(n_x, n_h, n_y):
         A dictionary with keys W1, b1, W2, b2 with b1, b2 initialized as zero vectors and W1, W2
         initialized as a random matrix.
     """
-    return {}
+    WEIGHT_STANDARD_DEVIATION = 0.01
+
+    W1 = np.random.randn(n_h, n_x) * WEIGHT_STANDARD_DEVIATION
+    W2 = np.random.randn(n_y, n_h) * WEIGHT_STANDARD_DEVIATION
+    b1 = np.zeros((n_h, 1))
+    b2 = np.zeros((n_y, 1))
+
+    return {
+        'W1': W1,
+        'W2': W2,
+        'b1': b1,
+        'b2': b2,
+    }
