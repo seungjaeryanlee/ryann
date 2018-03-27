@@ -7,7 +7,7 @@ import numpy as np
 
 def sigmoid(x):
     """
-    Apples the sigmoid function to a number or to a NumPy ndarray.
+    Applies the sigmoid function to a number or to a NumPy ndarray.
 
     Parameters
     ----------
