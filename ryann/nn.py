@@ -54,7 +54,7 @@ def shallow_nn(X, Y, n_h, num_iter):
     # 2. Run gradient descent num_iter times
     for i in range(0, num_iter):
         # 2-1. Forward Propagation
-        Y_computed, cache = forward_propagation(X, parameters)
+        Y_computed, cache = _forward_propagation(X, parameters)
 
         # 2-2. Compute cost
         cost = compute_cost(Y_computed, Y, parameters)
@@ -103,3 +103,25 @@ def _initialize_parameters(n_x, n_h, n_y):
         'b1': b1,
         'b2': b2,
     }
+
+def _forward_propagation(X, parameters):
+    """
+    Runs forward propagation from given parameters and input matrix X to compute the model's
+    predictions.
+
+    Parameters
+    ----------
+    X : np.ndarray
+        The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
+        of examples.
+    parameters : dict
+        A dictionary of parameters W1, W2, b1, b2.
+
+    Returns
+    -------
+    Y_computed : np.ndarray
+        The model's classification with shape (n_y, m).
+    cache : dictionary
+        A dictionary of Z1, A1, Z2, A2 that will be used in backward_propagation.
+    """
+    pass
