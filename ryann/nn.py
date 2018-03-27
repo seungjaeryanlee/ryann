@@ -1,6 +1,8 @@
 """
 Defines a basic neural network model.
 """
+import numpy as np
+
 
 def sigmoid(x):
     """
@@ -17,4 +19,4 @@ def sigmoid(x):
         If x was a single float, returns sigmoid(x). If x was an np.ndarray, returns a np.ndarray with sigmoid function
         applied to each element of the ndarray.
     """
-    pass
+    return 1 / (1 + np.exp(-x))
