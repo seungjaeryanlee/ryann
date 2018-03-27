@@ -57,7 +57,7 @@ def shallow_nn(X, Y, n_h, num_iter):
         Y_computed, cache = _forward_propagation(X, parameters)
 
         # 2-2. Compute cost
-        cost = compute_cost(Y_computed, Y, parameters)
+        cost = _compute_cost(Y_computed, Y)
 
         # 2-3. Backpropagation
         gradients = backward_propagation(parameters, cache, X, Y)
@@ -136,3 +136,22 @@ def _forward_propagation(X, parameters):
         'A2': A2,
     }
     return A2, cache
+
+
+def _compute_cost(Y_computed, Y):
+    """
+    Computes the cross-entropy cost with predicted output and actual output.
+
+    Parameters
+    ----------
+    Y_computed : np.ndarray
+        The sigmoid output of the neural network with shape (n_y, m).
+    Y : np.ndarray
+        The matrix with correct labels with shape (n_y, m).
+
+    Returns
+    -------
+    cost : float
+        The cross-entropy cost.
+    """
+    return 0
