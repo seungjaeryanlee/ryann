@@ -21,3 +21,25 @@ def sigmoid(x):
         with sigmoid function applied to each element of the ndarray.
     """
     return 1 / (1 + np.exp(-x))
+
+def shallow_nn(X, Y, n_h, num_iter):
+    """
+
+    Parameters
+    ----------
+    X : np.ndarray
+        The input matrix with shape (n, m) where n is the number of features and m is the number of
+        examples.
+    Y : np.ndarray
+        The labels for each input column with shape (1, m).
+    n_h : int
+        The number of hidden units in the hidden layer.
+    num_iter
+        Number of times to run gradient descent.
+
+    Returns
+    -------
+    parameters : dict
+        A dictionary of parameters learnt by the model.
+    """
+    return {}
