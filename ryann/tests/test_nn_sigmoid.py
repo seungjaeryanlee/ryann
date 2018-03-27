@@ -51,7 +51,8 @@ def test_nn_sigmoid_formula():
 
 def test_nn_sigmoid_formula_ndarray():
     """
-    Tests that nn.sigmoid() uses the correct sigmoid formula 1 / (1 + exp(-x)) when the input is an NumPy ndarray.
+    Tests that nn.sigmoid() uses the correct sigmoid formula 1 / (1 + exp(-x)) when the input is
+    an NumPy ndarray.
     """
     X = np.random.randn(3, 5)
     Y = nn.sigmoid(X)

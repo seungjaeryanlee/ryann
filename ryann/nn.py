@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 """
 Defines a basic neural network model.
 """
@@ -16,7 +17,7 @@ def sigmoid(x):
     Returns
     -------
     float or ndarray
-        If x was a single float, returns sigmoid(x). If x was an np.ndarray, returns a np.ndarray with sigmoid function
-        applied to each element of the ndarray.
+        If x was a single float, returns sigmoid(x). If x was an np.ndarray, returns a np.ndarray
+        with sigmoid function applied to each element of the ndarray.
     """
     return 1 / (1 + np.exp(-x))
