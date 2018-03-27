@@ -11,9 +11,9 @@ def test_nn_initialize_parameters_dimensions():
     """
     Checks the dimensions of output parameters of nn._initialize_parameters().
     """
-    n_x = np.random.randint(10)
-    n_h = np.random.randint(10)
-    n_y = np.random.randint(10)
+    n_x = np.random.randint(10) + 1
+    n_h = np.random.randint(10) + 1
+    n_y = np.random.randint(10) + 1
     params = nn._initialize_parameters(n_x, n_h, n_y)
 
     assert params['W1'].shape == (n_h, n_x)
@@ -25,9 +25,9 @@ def test_nn_initialize_parameters_weight_nonzero():
     """
     Tests that nn._initialize_parameters() does not set the weight matrices to zero matrices.
     """
-    n_x = np.random.randint(10)
-    n_h = np.random.randint(10)
-    n_y = np.random.randint(10)
+    n_x = np.random.randint(10) + 1
+    n_h = np.random.randint(10) + 1
+    n_y = np.random.randint(10) + 1
     params = nn._initialize_parameters(n_x, n_h, n_y)
 
     assert np.count_nonzero(params['W1']) > 0
@@ -37,9 +37,9 @@ def test_nn_initialize_parameters_bias_zero():
     """
     Tests that nn._initialize_parameters() sets the bias vectors to zero vectors.
     """
-    n_x = np.random.randint(10)
-    n_h = np.random.randint(10)
-    n_y = np.random.randint(10)
+    n_x = np.random.randint(10) + 1
+    n_h = np.random.randint(10) + 1
+    n_y = np.random.randint(10) + 1
     params = nn._initialize_parameters(n_x, n_h, n_y)
 
 
