@@ -41,6 +41,8 @@ def shallow_nn(X, Y, n_h, num_iter):
     -------
     parameters : dict
         A dictionary of parameters learnt by the model.
+    costs : list
+        A list of costs where costs[i] denotes the cost after i * 1000 iterations.
     """
     assert X.shape[1] == Y.shape[1]
 
@@ -49,6 +51,7 @@ def shallow_nn(X, Y, n_h, num_iter):
 
     # 1. Initialize parameters W1, b1, W2, b2
     parameters = _initialize_parameters(n_x, n_h, n_y)
+    costs = []
 
     # 2. Run gradient descent num_iter times
     for i in range(0, num_iter):
@@ -67,8 +70,9 @@ def shallow_nn(X, Y, n_h, num_iter):
         # 2-5. Print the cost for every 1000 iterations of gradient descent
         if i % 1000 == 0:
             print('Cost after iteration %i: %f' %(i, cost))
+            costs.append(cost)
 
-    return parameters
+    return parameters, costs
 
 def _initialize_parameters(n_x, n_h, n_y):
     """
