@@ -154,4 +154,16 @@ def _compute_cost(Y_computed, Y):
     cost : float
         The cross-entropy cost.
     """
-    return 0
+    assert Y_computed.shape == Y.shape
+
+    m = Y.shape[1]
+
+    # calculate a vector of losses for each example, and average them
+    loss = Y * np.log(Y_computed) + (1 - Y) * np.log(1 - Y_computed)
+    print(loss)
+    cost = -1 / m * np.sum(loss)
+
+    # make cost a float, not an one-element array
+    cost = np.squeeze(cost)
+
+    return cost
