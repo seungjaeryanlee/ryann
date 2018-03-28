@@ -63,7 +63,7 @@ def shallow_nn(X, Y, n_h, num_iter):
         gradients = _backward_propagation(parameters, cache, X, Y)
 
         # 2-4. Update parameters
-        parameters = update_parameters(parameters, gradients)
+        parameters = _update_parameters(parameters, gradients)
 
         # 2-5. Print the cost for every 1000 iterations of gradient descent
         if i % 1000 == 0:
@@ -189,6 +189,30 @@ def _backward_propagation(parameters, cache, X, Y):
     -------
     grads : dict
         A dictionary of gradients with respect to given parameters.
+    """
+    return {
+        'W1': 0,
+        'W2': 0,
+        'b1': 0,
+        'b2': 0,
+    }
+
+
+def _update_parameters(parameters, gradients):
+    """
+    Updates given parameters with given gradients using gradient descent.
+
+    Parameters
+    ----------
+    parameters : dict
+        A dictionary of parameters W1, W2, b1, b2.
+    gradients : dict
+        A dictionary of gradients for given parameters.
+
+    Returns
+    -------
+    parameters : dict
+        A dictionary of parameters updated with given gradients.
     """
     return {
         'W1': 0,
