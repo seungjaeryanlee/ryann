@@ -1,4 +1,4 @@
-# pylint: disable=no-self-use, too-few-public-methods, invalid-name
+# pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access
 """
 Tests the function nn._compute_cost().
 """
@@ -30,7 +30,6 @@ def test_nn_compute_cost_half():
     Check that nn._compute_cost() returns - log(0.5) if Y_computed is all 0.5.
     """
     m = 10
-    delta = 10**-1
 
     Y = np.random.randint(0, 2, size=(1, m))
     Y_computed = np.full((1, m), 0.5)

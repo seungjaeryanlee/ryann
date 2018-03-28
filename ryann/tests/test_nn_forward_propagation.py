@@ -1,9 +1,8 @@
-# pylint: disable=no-self-use, too-few-public-methods, invalid-name
+# pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access
 """
 Tests the function nn._forward_propagation().
 """
 import numpy as np
-from numpy.testing import assert_almost_equal
 from ryann import nn
 
 

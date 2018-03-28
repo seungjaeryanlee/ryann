@@ -45,7 +45,6 @@ def shallow_nn(X, Y, n_h, num_iter):
     assert X.shape[1] == Y.shape[1]
 
     n_x = X.shape[0]
-    m = X.shape[1]
     n_y = Y.shape[0]
 
     # 1. Initialize parameters W1, b1, W2, b2
@@ -191,7 +190,6 @@ def _backward_propagation(parameters, cache, X, Y):
         A dictionary of gradients with respect to given parameters.
     """
     m = X.shape[1]
-    W1 = parameters['W1']
     W2 = parameters['W2']
     A1 = cache['A1']
     A2 = cache['A2']
@@ -211,7 +209,7 @@ def _backward_propagation(parameters, cache, X, Y):
     }
 
 
-def _update_parameters(parameters, gradients, learning_rate = 0.01):
+def _update_parameters(parameters, gradients, learning_rate=0.01):
     """
     Updates given parameters with given gradients using gradient descent.
 

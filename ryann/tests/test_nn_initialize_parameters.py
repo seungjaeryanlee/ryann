@@ -1,10 +1,8 @@
-# pylint: disable=no-self-use, too-few-public-methods, invalid-name
+# pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access
 """
 Tests the function nn._initialize_parameters().
 """
 import numpy as np
-from numpy.testing import assert_almost_equal
-import pytest
 from ryann import nn
 
 def test_nn_initialize_parameters_dimensions():
@@ -21,6 +19,7 @@ def test_nn_initialize_parameters_dimensions():
     assert params['W2'].shape == (n_y, n_h)
     assert params['b2'].shape == (n_y, 1)
 
+
 def test_nn_initialize_parameters_weight_nonzero():
     """
     Tests that nn._initialize_parameters() does not set the weight matrices to zero matrices.
@@ -32,6 +31,7 @@ def test_nn_initialize_parameters_weight_nonzero():
 
     assert np.count_nonzero(params['W1']) > 0
     assert np.count_nonzero(params['W2']) > 0
+
 
 def test_nn_initialize_parameters_bias_zero():
     """

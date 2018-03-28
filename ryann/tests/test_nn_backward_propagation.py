@@ -1,4 +1,4 @@
-# pylint: disable=no-self-use, too-few-public-methods, invalid-name
+# pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access, too-many-locals
 """
 Tests the function nn._backward_propagation().
 """
