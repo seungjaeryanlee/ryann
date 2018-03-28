@@ -190,11 +190,24 @@ def _backward_propagation(parameters, cache, X, Y):
     grads : dict
         A dictionary of gradients with respect to given parameters.
     """
+    m = X.shape[1]
+    W1 = parameters['W1']
+    W2 = parameters['W2']
+    A1 = cache['A1']
+    A2 = cache['A2']
+
+    dZ2 = A2 - Y
+    dW2 = 1 / m * np.dot(dZ2, A1.T)
+    db2 = 1 / m * np.sum(dZ2, axis=1, keepdims=True)
+    dZ1 = np.dot(W2.T, dZ2) * (1 - A1 ** 2)
+    dW1 = 1 / m * np.dot(dZ1, X.T)
+    db1 = 1 / m * np.sum(dZ1, axis=1, keepdims=True)
+
     return {
-        'W1': 0,
-        'W2': 0,
-        'b1': 0,
-        'b2': 0,
+        'W1': dW1,
+        'W2': dW2,
+        'b1': db1,
+        'b2': db2,
     }
 
 
