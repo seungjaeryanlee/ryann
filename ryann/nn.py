@@ -159,7 +159,6 @@ def _compute_cost(Y_computed, Y):
 
     # calculate a vector of losses for each example, and average them
     loss = Y * np.log(Y_computed) + (1 - Y) * np.log(1 - Y_computed)
-    print(loss)
     cost = -1 / m * np.sum(loss)
 
     # make cost a float, not an one-element array
