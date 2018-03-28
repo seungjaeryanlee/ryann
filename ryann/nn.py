@@ -60,7 +60,7 @@ def shallow_nn(X, Y, n_h, num_iter):
         cost = _compute_cost(Y_computed, Y)
 
         # 2-3. Backpropagation
-        gradients = backward_propagation(parameters, cache, X, Y)
+        gradients = _backward_propagation(parameters, cache, X, Y)
 
         # 2-4. Update parameters
         parameters = update_parameters(parameters, gradients)
@@ -167,3 +167,32 @@ def _compute_cost(Y_computed, Y):
     cost = np.squeeze(cost)
 
     return cost
+
+
+def _backward_propagation(parameters, cache, X, Y):
+    """
+    Runs backward propagation on given parameters using cached values, X, and Y.
+
+    Parameters
+    ----------
+    parameters : dict
+        A dictionary of parameters W1, W2, b1, b2.
+    cache : dict
+        A dictionary of Z1, A1, Z2, A2 that will be used in backward_propagation.
+    X : np.ndarray
+        The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
+        of examples.
+    Y : np.ndarray
+        The matrix with correct labels with shape (n_y, m).
+
+    Returns
+    -------
+    grads : dict
+        A dictionary of gradients with respect to given parameters.
+    """
+    return {
+        'W1': 0,
+        'W2': 0,
+        'b1': 0,
+        'b2': 0,
+    }
