@@ -248,3 +248,22 @@ def _update_parameters(parameters, gradients, learning_rate=0.01):
         'b1': b1,
         'b2': b2,
     }
+
+def predict(parameters, X):
+    """
+    Returns predictions on given training examples X using given parameters.
+
+    Parameters
+    ----------
+    parameters : dict
+        A dictionary of parameters W1, W2, b1, b2.
+    X : np.ndarray
+        The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
+        of examples.
+
+    Returns
+    -------
+    predictions : np.ndarray
+        A vector of predictions by the model.
+    """
+    pass
