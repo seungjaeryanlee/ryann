@@ -4,6 +4,8 @@ Defines a basic neural network model.
 """
 import numpy as np
 
+from ryann.nn.activation import sigmoid
+
 
 def shallow_nn(X, Y, n_h, num_iter):
     """
