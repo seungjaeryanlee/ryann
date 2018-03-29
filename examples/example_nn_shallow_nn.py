@@ -15,9 +15,9 @@ from ryann import nn
 m = 200
 X = np.random.randn(2, m)
 Y = np.zeros(shape=(1, m))
-noise = 0.5
+noise = 1
 for i, x in enumerate(X.T):
-    Y[0][i] = int(x[0] + x[1] < 1 + np.random.randn() * noise)
+    Y[0][i] = int(x[0]**2 + 2 * x[1] < 1 + noise * np.random.choice([0, 1]))
 # plt.scatter(X[0, :], X[1, :], c=Y.reshape(m), cmap='coolwarm')
 
 # 2) Train
