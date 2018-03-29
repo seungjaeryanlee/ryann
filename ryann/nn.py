@@ -268,4 +268,4 @@ def predict(parameters, X):
     """
     A2, _ = _forward_propagation(X, parameters)
 
-    return A2 > 0.5
+    return (A2 > 0.5).astype(int)
