@@ -75,12 +75,12 @@ def _initialize_parameters(layer_dims):
         b (bias vector) initialized. W is initialized with a random normal distribution to break
         symmetry and b is initialized as the zero vector.
     """
-    parameters = []
+    parameters = [(0, 0)] # One added for W0, b0 (not used but useful for spacing)
     L = len(layer_dims)  # Number of layers
 
     for l in range(1, L):
         W = np.random.randn(layer_dims[l], layer_dims[l-1])
-        b = np.zeros((layer_dims, 1))
+        b = np.zeros((layer_dims[l], 1))
         parameters.append((W, b))
 
     return parameters
