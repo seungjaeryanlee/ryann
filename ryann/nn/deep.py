@@ -74,7 +74,14 @@ def _initialize_parameters(layer_dims):
         A dictionary with keys W1, b1, W2, b2, ... with bias vectors b1, b2, ... initialized as
         zero vectors and weight matrices W1, W2, ... initialized randomly.
     """
-    pass
+    parameters = {}
+    L = len(layer_dims)  # Number of layers
+
+    for l in range(1, L):
+        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1])
+        parameters['b' + str(l)] = np.zeros((layer_dims, 1))
+
+    return parameters
 
 
 def _forward_propagation(X, parameters):
