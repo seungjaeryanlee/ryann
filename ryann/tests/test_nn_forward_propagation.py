@@ -3,7 +3,7 @@
 Tests the function nn._forward_propagation().
 """
 import numpy as np
-from ryann import nn
+from ryann.nn import shallow
 
 
 def test_nn_forward_propagation_dimension():
@@ -14,9 +14,9 @@ def test_nn_forward_propagation_dimension():
     n_h = np.random.randint(10)
     n_y = np.random.randint(10)
     m = np.random.randint(100)
-    params = nn._initialize_parameters(n_x, n_h, n_y)
+    params = shallow._initialize_parameters(n_x, n_h, n_y)
     X = np.zeros((n_x, m))
-    Y_computed, cache = nn._forward_propagation(X, params)
+    Y_computed, cache = shallow._forward_propagation(X, params)
 
     assert Y_computed.shape == (n_y, m)
     assert cache['Z1'].shape == (n_h, m)

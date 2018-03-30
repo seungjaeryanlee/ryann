@@ -4,7 +4,7 @@ Tests the function nn._compute_cost().
 """
 import numpy as np
 from numpy.testing import assert_almost_equal
-from ryann import nn
+from ryann.nn import shallow
 
 
 def test_nn_compute_cost_close():
@@ -16,7 +16,7 @@ def test_nn_compute_cost_close():
 
     Y = np.random.randint(0, 2, size=(1, m))
     Y_computed = np.abs(Y - epsilon)
-    cost = nn._compute_cost(Y_computed, Y)
+    cost = shallow._compute_cost(Y_computed, Y)
 
     print('Y : ' + str(Y))
     print('Y_computed : ' + str(Y_computed))
@@ -33,7 +33,7 @@ def test_nn_compute_cost_half():
 
     Y = np.random.randint(0, 2, size=(1, m))
     Y_computed = np.full((1, m), 0.5)
-    cost = nn._compute_cost(Y_computed, Y)
+    cost = shallow._compute_cost(Y_computed, Y)
 
     print('Y : ' + str(Y))
     print('Y_computed : ' + str(Y_computed))

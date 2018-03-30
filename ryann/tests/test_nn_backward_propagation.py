@@ -4,7 +4,7 @@ Tests the function nn._backward_propagation().
 """
 import numpy as np
 from numpy.testing import assert_almost_equal
-from ryann import nn
+from ryann.nn import shallow
 
 
 def test_nn_backward_propagation_gradient_checking():
@@ -20,9 +20,9 @@ def test_nn_backward_propagation_gradient_checking():
     Y = np.random.randint(0, 2, size=(n_y, m))
 
     # 1) Compute gradients with nn._backward_propagation()
-    parameters = nn._initialize_parameters(n_x, n_h, n_y)
-    Y_computed, cache = nn._forward_propagation(X, parameters)
-    gradients = nn._backward_propagation(parameters, cache, X, Y)
+    parameters = shallow._initialize_parameters(n_x, n_h, n_y)
+    Y_computed, cache = shallow._forward_propagation(X, parameters)
+    gradients = shallow._backward_propagation(parameters, cache, X, Y)
 
     # 2) Compute gradients manually
     epsilon = 10**-8
@@ -30,13 +30,13 @@ def test_nn_backward_propagation_gradient_checking():
         for index, element in np.ndenumerate(parameter):
             # Get J(..., x + e, ...)
             parameter[index] = element + epsilon
-            Y_computed, _ = nn._forward_propagation(X, parameters)
-            cost_plus = nn._compute_cost(Y_computed, Y)
+            Y_computed, _ = shallow._forward_propagation(X, parameters)
+            cost_plus = shallow._compute_cost(Y_computed, Y)
 
             # Get J(..., x - e, ...)
             parameter[index] = element - epsilon
-            Y_computed, _ = nn._forward_propagation(X, parameters)
-            cost_minus = nn._compute_cost(Y_computed, Y)
+            Y_computed, _ = shallow._forward_propagation(X, parameters)
+            cost_minus = shallow._compute_cost(Y_computed, Y)
 
             # Estimate gradient
             estimated_gradient = (cost_plus - cost_minus) / (2 * epsilon)
