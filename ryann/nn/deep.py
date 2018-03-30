@@ -152,9 +152,9 @@ def _backward_propagation(parameters, cache, X, Y):
     parameters : list of tuple
         A list of L tuples where each tuple has first element W (weight matrix) and second element
         b (bias vector).
-    cache : dict
-        A dictionary of matrix products Z1, Z2, ... and activations A1, A2, ... that will be used
-        in backward_propagation.
+    cache : list of tuple
+        A list of tuples with L tuples with first element of tuple being Z (the matrix product) and
+        the second element being A (the activation).
     X : np.ndarray
         The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
         of examples.
