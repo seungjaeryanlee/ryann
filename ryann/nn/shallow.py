@@ -7,7 +7,7 @@ import numpy as np
 from ryann.activation import sigmoid
 
 
-def shallow_nn(X, Y, n_h, num_iter):
+def train(X, Y, n_h, num_iter):
     """
 
     Parameters

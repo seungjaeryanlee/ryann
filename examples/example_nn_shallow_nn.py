@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This file showcases what ryann.nn.shallow_nn() does.
+This file showcases what ryann.nn.train() does.
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,7 +21,7 @@ for i, x in enumerate(X.T):
 # plt.scatter(X[0, :], X[1, :], c=Y.reshape(m), cmap='coolwarm')
 
 # 2) Train
-parameters, costs = nn.shallow_nn(X, Y, n_h=3, num_iter=10000)
+parameters, costs = nn.train(X, Y, n_h=3, num_iter=10000)
 
 # 3) Compute and Plot Decision Boundary
 x1_pts = np.arange(-5, 5, 0.01)
