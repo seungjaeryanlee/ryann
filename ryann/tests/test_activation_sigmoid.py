@@ -5,14 +5,14 @@ Tests all functions in ryann.nn module.
 import numpy as np
 from numpy.testing import assert_almost_equal
 import pytest
-from ryann import nn
+from ryann.activation import sigmoid
 
 
 def test_nn_sigmoid_zero():
     """
     Tests that nn.sigmoid(0) = 0.5
     """
-    assert nn.sigmoid(0) == pytest.approx(0.5)
+    assert sigmoid(0) == pytest.approx(0.5)
 
 
 def test_nn_sigmoid_zero_ndarray():
@@ -24,7 +24,7 @@ def test_nn_sigmoid_zero_ndarray():
     z = int(np.random.rand() * 10)
     X = np.zeros((x, y, z))
 
-    assert_almost_equal(nn.sigmoid(X), np.full((x, y, z), 0.5))
+    assert_almost_equal(sigmoid(X), np.full((x, y, z), 0.5))
 
 
 def test_nn_sigmoid_increasing():
@@ -35,9 +35,9 @@ def test_nn_sigmoid_increasing():
     y = np.random.rand() * 10
 
     if x >= y:
-        assert nn.sigmoid(x) >= nn.sigmoid(y)
+        assert sigmoid(x) >= sigmoid(y)
     else:
-        assert nn.sigmoid(x) < nn.sigmoid(y)
+        assert sigmoid(x) < sigmoid(y)
 
 
 def test_nn_sigmoid_formula():
@@ -46,7 +46,7 @@ def test_nn_sigmoid_formula():
     """
     x = np.random.randn()
 
-    assert_almost_equal(nn.sigmoid(x), 1 / (1 + np.exp(-x)))
+    assert_almost_equal(sigmoid(x), 1 / (1 + np.exp(-x)))
 
 
 def test_nn_sigmoid_formula_ndarray():
@@ -55,7 +55,7 @@ def test_nn_sigmoid_formula_ndarray():
     an NumPy ndarray.
     """
     X = np.random.randn(3, 5)
-    Y = nn.sigmoid(X)
+    Y = sigmoid(X)
 
     for index, x in np.ndenumerate(X):
         assert_almost_equal(Y.item(index), 1 / (1 + np.exp(-x)))
