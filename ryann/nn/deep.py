@@ -101,10 +101,24 @@ def _forward_propagation(X, parameters):
     -------
     Y_computed : np.ndarray
         The model's classification with shape (n_y, m).
-    cache : dictionary
-        A dictionary of Z1, Z2, ... and A1, A2, ... that will be used in backward_propagation.
+    cache : list of tuple
+        A list of tuples with L tuples with first element of tuple being Z (the matrix product) and
+        the second element being A (the activation).
     """
-    pass
+    L = len(parameters) // 2 # Number of layers
+
+    cache = []
+    A = X
+
+    for l in range(1, L):
+        W = parameters['W' + str(l)]
+        b = parameters['b' + str(l)]
+
+        Z = np.dot(W, A) + b
+        A = sigmoid(Z)
+        cache.append((Z, A))
+
+    return cache[-1][1], cache
 
 
 def _compute_cost(Y_computed, Y):
