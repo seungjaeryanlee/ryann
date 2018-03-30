@@ -108,9 +108,9 @@ def _forward_propagation(X, parameters):
         A list of tuples with L tuples with first element of tuple being Z (the matrix product) and
         the second element being A (the activation).
     """
-    L = len(parameters) // 2 # Number of layers
+    L = len(parameters) # Number of layers
 
-    cache = []
+    cache = [(0, 0)]
     A = X
 
     for l in range(1, L):
