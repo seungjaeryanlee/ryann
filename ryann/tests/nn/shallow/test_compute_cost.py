@@ -1,6 +1,6 @@
 # pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access
 """
-Tests the function nn._compute_cost().
+Tests the function nn.shallow._compute_cost().
 """
 import numpy as np
 from numpy.testing import assert_almost_equal
@@ -9,7 +9,7 @@ from ryann.nn import shallow
 
 def test_nn_compute_cost_close():
     """
-    Check that nn._compute_cost() returns close to zero if Y_computed is close to Y.
+    Check that nn.shallow._compute_cost() returns close to zero if Y_computed is close to Y.
     """
     m = 10
     epsilon = 10**-8
@@ -27,7 +27,7 @@ def test_nn_compute_cost_close():
 
 def test_nn_compute_cost_half():
     """
-    Check that nn._compute_cost() returns - log(0.5) if Y_computed is all 0.5.
+    Check that nn.shallow._compute_cost() returns - log(0.5) if Y_computed is all 0.5.
     """
     m = 10
 
