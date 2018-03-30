@@ -70,16 +70,18 @@ def _initialize_parameters(layer_dims):
 
     Returns
     -------
-    parameters : dict
-        A dictionary with keys W1, b1, W2, b2, ... with bias vectors b1, b2, ... initialized as
-        zero vectors and weight matrices W1, W2, ... initialized randomly.
+    parameters : list of tuple
+        A list of L tuples where each tuple has first element W (weight matrix) and second element
+        b (bias vector) initialized. W is initialized with a random normal distribution to break
+        symmetry and b is initialized as the zero vector.
     """
-    parameters = {}
+    parameters = []
     L = len(layer_dims)  # Number of layers
 
     for l in range(1, L):
-        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1])
-        parameters['b' + str(l)] = np.zeros((layer_dims, 1))
+        W = np.random.randn(layer_dims[l], layer_dims[l-1])
+        b = np.zeros((layer_dims, 1))
+        parameters.append((W, b))
 
     return parameters
 
@@ -94,8 +96,9 @@ def _forward_propagation(X, parameters):
     X : np.ndarray
         The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
         of examples.
-    parameters : dict
-        A dictionary of parameters: weight matrices and bias vectors.
+    parameters : list of tuple
+        A list of L tuples where each tuple has first element W (weight matrix) and second element
+        b (bias vector).
 
     Returns
     -------
@@ -111,8 +114,8 @@ def _forward_propagation(X, parameters):
     A = X
 
     for l in range(1, L):
-        W = parameters['W' + str(l)]
-        b = parameters['b' + str(l)]
+        W = parameters[l][0]
+        b = parameters[l][1]
 
         Z = np.dot(W, A) + b
         A = sigmoid(Z)
@@ -146,8 +149,9 @@ def _backward_propagation(parameters, cache, X, Y):
 
     Parameters
     ----------
-    parameters : dict
-        A dictionary of parameters: weight matrices and bias vectors.
+    parameters : list of tuple
+        A list of L tuples where each tuple has first element W (weight matrix) and second element
+        b (bias vector).
     cache : dict
         A dictionary of matrix products Z1, Z2, ... and activations A1, A2, ... that will be used
         in backward_propagation.
@@ -171,8 +175,9 @@ def _update_parameters(parameters, gradients, learning_rate=0.01):
 
     Parameters
     ----------
-    parameters : dict
-        A dictionary of parameters: weight matrices and bias vectors.
+    parameters : list of tuple
+        A list of L tuples where each tuple has first element W (weight matrix) and second element
+        b (bias vector).
     gradients : dict
         A dictionary of gradients for given parameters.
 
@@ -190,8 +195,9 @@ def predict(parameters, X):
 
     Parameters
     ----------
-    parameters : dict
-        A dictionary of parameters: weight matrices and bias vectors.
+    parameters : list of tuple
+        A list of L tuples where each tuple has first element W (weight matrix) and second element
+        b (bias vector).
     X : np.ndarray
         The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
         of examples.
