@@ -204,7 +204,13 @@ def _update_parameters(parameters, gradients, learning_rate=0.01):
     parameters : dict
         A dictionary of parameters updated with given gradients.
     """
-    pass
+    L = len(parameters) // 2
+
+    for l in range(L):
+        parameters[l][0] -= learning_rate * gradients['dW' + str(l + 1)]
+        parameters[l][1] -= learning_rate * gradients['db' + str(l + 1)]
+
+    return parameters
 
 
 def predict(parameters, X):
