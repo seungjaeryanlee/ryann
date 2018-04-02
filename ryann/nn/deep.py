@@ -266,4 +266,6 @@ def predict(parameters, X):
     predictions : np.ndarray
         A vector of predictions by the model specified by the given parameters.
     """
-    pass
+    A, _ = _forward_propagation(X, parameters)
+
+    return (A > 0.5).astype(int)
