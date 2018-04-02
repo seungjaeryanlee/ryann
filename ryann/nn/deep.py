@@ -6,7 +6,7 @@ import numpy as np
 
 from ryann.activation import sigmoid, sigmoid_derivative, relu, relu_derivative
 
-def train(X, Y, layer_dims, num_iter):
+def train(X, Y, layer_dims, num_iter, learning_rate=0.01):
     """
 
     Parameters
@@ -20,6 +20,8 @@ def train(X, Y, layer_dims, num_iter):
         The list of number of hidden units for each hidden layer.
     num_iter
         Number of times to run gradient descent.
+    learning_rate : float
+        The learning rate for gradient descent.
 
     Returns
     -------
@@ -50,7 +52,7 @@ def train(X, Y, layer_dims, num_iter):
         gradients = _backward_propagation(cache, Y_computed, Y)
 
         # 2-4. Update parameters
-        parameters = _update_parameters(parameters, gradients, 0.01)
+        parameters = _update_parameters(parameters, gradients, learning_rate)
 
         # 2-5. Print the cost for every 1000 iterations of gradient descent
         if i % 1000 == 0:
@@ -226,7 +228,7 @@ def _activation_backward(dAl, Zl, activation_name):
     return dZl
 
 
-def _update_parameters(parameters, gradients, learning_rate=0.01):
+def _update_parameters(parameters, gradients, learning_rate):
     """
     Updates given parameters with given gradients using gradient descent.
 
