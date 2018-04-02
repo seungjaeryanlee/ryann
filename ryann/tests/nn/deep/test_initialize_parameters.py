@@ -5,6 +5,17 @@ Tests the function nn.deep._initialize_parameters().
 import numpy as np
 from ryann.nn import deep
 
+
+def test_nn_deep_initialize_parameters_length():
+    """
+    Checks the number of output parameters of nn.deep.initialize_parameters().
+    """
+    layer_dims = np.random.randint(1, 10, 5)
+    params = deep._initialize_parameters(layer_dims)
+
+    assert len(params) == 2 * len(layer_dims)
+
+
 def test_nn_deep_initialize_parameters_dimensions():
     """
     Checks the dimensions of output parameters of nn.deep._initialize_parameters().
