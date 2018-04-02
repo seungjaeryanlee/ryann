@@ -107,9 +107,10 @@ def _forward_propagation(X, parameters):
     Y_computed : np.ndarray
         The model's classification with shape (n_y, m).
     cache : dict
-        A dictionary with 3L values, where L is the number of layers. Each layer l has Zl, the
+        A dictionary with 3L + 1 values, where L is the number of layers. Each layer l has Zl, the
         result of the linear action, Al, the result of the nonlinear activation function, and WL,
-        the weight matrix.
+        the weight matrix. A0 is also in cache for convenient computation in backward_propagation,
+        but is not used.
     """
     L = len(parameters) // 2 # Number of layers
     cache = {}
@@ -160,9 +161,10 @@ def _backward_propagation(cache, Y_computed, Y):
     Parameters
     ----------
     cache : dict
-        A dictionary with 3L values, where L is the number of layers. Each layer l has Zl, the
+        A dictionary with 3L+1 values, where L is the number of layers. Each layer l has Zl, the
         result of the linear action, Al, the result of the nonlinear activation function, and Wl,
-        the weight matrix. The dictionary was filled from forward propagation.
+        the weight matrix. A0 is added for convenience but is not used. The dictionary was filled
+        from forward propagation.
     Y_computed : np.ndarray
         The sigmoid output of the neural network with shape (n_y, m).
     Y : np.ndarray
@@ -175,7 +177,7 @@ def _backward_propagation(cache, Y_computed, Y):
         dAl, dWl, dbl.
     """
     gradients = {}
-    L = len(cache) // 3
+    L = (len(cache) - 1) // 3
     m = Y_computed.shape[1]
 
     # Calculate gradient of last activation: Y_computed
