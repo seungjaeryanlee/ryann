@@ -113,7 +113,8 @@ def _forward_propagation(X, parameters):
     """
     L = len(parameters) // 2 # Number of layers
     cache = {}
-    A = X # A0
+    cache['A0'] = X
+    A = X
 
     for l in range(1, L + 1):
         W = parameters['W' + str(l)]
