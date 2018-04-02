@@ -31,7 +31,7 @@ def test_nn_deep_forward_propagation_cache_length():
     X = np.zeros((layer_dims[0], m))
     _, cache = deep._forward_propagation(X, params)
 
-    assert len(cache) == 3 * L
+    assert len(cache) == 3 * L + 1 # Z, A, W for each layer, extra A0
 
 
 def test_nn_deep_forward_propagation_cache_dimension():
