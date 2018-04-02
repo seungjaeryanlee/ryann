@@ -189,6 +189,7 @@ def _backward_propagation(cache, Y_computed, Y):
         gradients['dW' + str(l)] = 1 / m * np.dot(dZ, A_prev.T)
         gradients['db' + str(l)] = 1 / m * np.sum(dZ, axis=1, keepdims=True)
         gradients['dA' + str(l - 1)] = np.dot(W.T, dZ)
+        dA = gradients['dA' + str(l - 1)] # Update dA for previous layer
 
     return gradients
 
