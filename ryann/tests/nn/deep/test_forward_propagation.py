@@ -46,8 +46,9 @@ def test_nn_deep_forward_propagation_cache_dimension():
     Y_computed, cache = deep._forward_propagation(X, params)
 
     for l in range(1, L):
-        assert cache[l][0].shape == (layer_dims[l], m) # Z
-        assert cache[l][1].shape == (layer_dims[l], m) # A
+        assert cache['Z' + str(l)].shape == (layer_dims[l], m) # Z
+        assert cache['A' + str(l)].shape == (layer_dims[l], m) # A
+        assert cache['W' + str(l)].shape == params['W' + str(l)].shape # W
 
 
 def test_nn_deep_forward_propagation_precomputed():
