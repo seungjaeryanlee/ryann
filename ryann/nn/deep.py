@@ -47,7 +47,7 @@ def train(X, Y, layer_dims, num_iter):
         cost = _compute_cost(Y_computed, Y)
 
         # 2-3. Backpropagation
-        gradients = _backward_propagation(cache, X, Y)
+        gradients = _backward_propagation(cache, Y_computed, Y)
 
         # 2-4. Update parameters
         parameters = _update_parameters(parameters, gradients, 0.01)
