@@ -17,7 +17,7 @@ def test_nn_deep_backward_propagation_gradient_checking():
     X = np.random.randn(layer_dims[0], m)
     Y = np.random.randint(0, 2, size=(layer_dims[-1], m))
 
-    # 1) Compute gradients with nn.shallow._backward_propagation()
+    # 1) Compute gradients with nn.deep._backward_propagation()
     parameters = deep._initialize_parameters(layer_dims)
     Y_computed, cache = deep._forward_propagation(X, parameters)
     gradients = deep._backward_propagation(cache, Y_computed, Y)
