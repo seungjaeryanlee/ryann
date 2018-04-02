@@ -157,9 +157,10 @@ def _backward_propagation(cache, Y_computed, Y):
 
     Parameters
     ----------
-    cache : list of tuple
-        A list of tuples with L tuples with first element of tuple being Z (the matrix product) and
-        the second element being A (the activation).
+    cache : dict
+        A dictionary with 3L values, where L is the number of layers. Each layer l has Zl, the
+        result of the linear action, Al, the result of the nonlinear activation function, and Wl,
+        the weight matrix. The dictionary was filled from forward propagation.
     Y_computed : np.ndarray
         The sigmoid output of the neural network with shape (n_y, m).
     Y : np.ndarray
@@ -168,21 +169,24 @@ def _backward_propagation(cache, Y_computed, Y):
     Returns
     -------
     gradients : dict
-        A dictionary of gradients with respect to given parameters.
+        A dictionary of gradients with respect to given parameters. Each layer l has 3 gradients:
+        dAl, dWl, dbl.
     """
     gradients = {}
-    L = len(cache)
+    L = len(cache) // 2
     m = Y_computed.shape[1]
 
     # Calculate gradient of last activation: Y_computed
-    dAL = Y / Y_computed - (1 - Y) / (1 - Y_computed)
+    dA = Y / Y_computed - (1 - Y) / (1 - Y_computed)
 
-    # from L-1 to 0:
-    for l in reversed(range(L)):
-        dA_prev, dW, db = _backward_propagation_step()
-        gradients['dA' + str(l)] = dA_prev
-        gradients['dW' + str(l + 1)] = dW
-        gradients['db' + str(l + 1)] = db
+    # from L to 1:
+    for l in reversed(range(1, L + 1)):
+        dZ = _activation_backward(dA, cache[l], 'sigmoid')
+        A_prev = cache['A' + str(l - 1)]
+        W = cache['W' + str(l)]
+        gradients['dW' + str(l)] = 1 / m * np.dot(dZ, A_prev.T)
+        gradients['db' + str(l)] = 1 / m * np.sum(dZ, axis=1, keepdims=True)
+        gradients['dA' + str(l - 1)] = np.dot(W.T, dZ)
 
     return gradients
 
