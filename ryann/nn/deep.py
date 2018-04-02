@@ -4,7 +4,7 @@ Defines a deep neural network model.
 """
 import numpy as np
 
-from ryann.activation import sigmoid
+from ryann.activation import sigmoid, sigmoid_derivative, relu, relu_derivative
 
 def train(X, Y, layer_dims, num_iter):
     """
@@ -182,7 +182,7 @@ def _backward_propagation(cache, Y_computed, Y):
 
     # from L to 1:
     for l in reversed(range(1, L + 1)):
-        dZ = _activation_backward(dA, cache[l], 'sigmoid')
+        dZ = _activation_backward(dA, cache['Z' + str(l)], 'sigmoid')
         A_prev = cache['A' + str(l - 1)]
         W = cache['W' + str(l)]
         gradients['dW' + str(l)] = 1 / m * np.dot(dZ, A_prev.T)
@@ -190,6 +190,36 @@ def _backward_propagation(cache, Y_computed, Y):
         gradients['dA' + str(l - 1)] = np.dot(W.T, dZ)
 
     return gradients
+
+
+def _activation_backward(dAl, Zl, activation_name):
+    """
+    Implement the backward propagation for the LINEAR->ACTIVATION layer.
+
+    Parameters
+    ----------
+    dAl : np.ndarray
+        The derivative of the cost function J with respect to Al, the activation of layer l.
+
+    Zl : np.ndarray
+        The linear output of layer l.
+
+    activation_name : str
+        The string that specifies the activation used. Can be either 'sigmoid' or 'relu'.
+
+    Returns
+    -------
+    dZl : np.ndarray
+        The derivative of the cost function J with repsect to Zl, the linear output of layer l.
+    """
+    if activation_name == 'sigmoid':
+        dZl = dAl * sigmoid_derivative(Zl)
+    elif activation_name == 'relu':
+        dZl = dAl * relu_derivative(Zl)
+    else:
+        raise ValueError('Only sigmoid and relu activations are supported.')
+
+    return dZl
 
 
 def _update_parameters(parameters, gradients, learning_rate=0.01):
