@@ -24,7 +24,9 @@ def train(X, Y, layer_dims, num_iter):
     Returns
     -------
     parameters : dict
-        A dictionary of parameters learnt by the model.
+        A dictionary of parameters learnt by the model. There are 2L parameters in total, where L
+        is the number of layers. Each layer l has two parameters Wl and bl, respectively denoting
+        the weight matrix and the bias vector for the layer l.
     costs : list
         A list of costs where costs[i] denotes the cost after i * 1000 iterations.
     """
@@ -45,7 +47,7 @@ def train(X, Y, layer_dims, num_iter):
         cost = _compute_cost(Y_computed, Y)
 
         # 2-3. Backpropagation
-        gradients = _backward_propagation(parameters, cache, X, Y)
+        gradients = _backward_propagation(cache, X, Y)
 
         # 2-4. Update parameters
         parameters = _update_parameters(parameters, gradients, 0.01)
@@ -60,7 +62,7 @@ def train(X, Y, layer_dims, num_iter):
 
 def _initialize_parameters(layer_dims):
     """
-    Initializes parameters (weight matrices and bias vectors) based on given layer sizes.
+    Initializes the parameters (weight matrices and bias vectors) based on given layer dimensions.
 
     Parameters
     ----------
@@ -70,10 +72,12 @@ def _initialize_parameters(layer_dims):
 
     Returns
     -------
-    parameters : list of tuple
-        A list of L tuples where each tuple has first element W (weight matrix) and second element
-        b (bias vector) initialized. W is initialized with a random normal distribution to break
-        symmetry and b is initialized as the zero vector.
+    parameters : dict
+        A dictionary of initialized parameters. There are 2L parameters in total, where L is the
+        number of layers. Each layer l has two parameters Wl and bl, respectively denoting
+        the weight matrix and the bias vector for the layer l. The weight matrix is initialized with
+        a normalized distribution with small variance to break symmetry, and the bias vectors are
+        initialized as zero vectors.
     """
     parameters = [(0, 0)] # One added for W0, b0 (not used but useful for spacing)
     L = len(layer_dims)  # Number of layers
@@ -96,9 +100,9 @@ def _forward_propagation(X, parameters):
     X : np.ndarray
         The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
         of examples.
-    parameters : list of tuple
-        A list of L tuples where each tuple has first element W (weight matrix) and second element
-        b (bias vector).
+    parameters : dict
+        A dictionary of initialized parameters with weight matrices and bias vectors used for
+        forward propagation.
 
     Returns
     -------
@@ -148,15 +152,12 @@ def _compute_cost(Y_computed, Y):
     return cost
 
 
-def _backward_propagation(parameters, cache, Y_computed, Y):
+def _backward_propagation(cache, Y_computed, Y):
     """
     Runs backward propagation on given parameters using cached values, X, and Y.
 
     Parameters
     ----------
-    parameters : list of tuple
-        A list of L tuples where each tuple has first element W (weight matrix) and second element
-        b (bias vector).
     cache : list of tuple
         A list of tuples with L tuples with first element of tuple being Z (the matrix product) and
         the second element being A (the activation).
@@ -171,7 +172,7 @@ def _backward_propagation(parameters, cache, Y_computed, Y):
         A dictionary of gradients with respect to given parameters.
     """
     gradients = {}
-    L = len(parameters) // 2
+    L = len(cache)
     m = Y_computed.shape[1]
 
     # Calculate gradient of last activation: Y_computed
@@ -193,16 +194,16 @@ def _update_parameters(parameters, gradients, learning_rate=0.01):
 
     Parameters
     ----------
-    parameters : list of tuple
-        A list of L tuples where each tuple has first element W (weight matrix) and second element
-        b (bias vector).
+    parameters : dict
+        A dictionary of parameters with weight matrices and bias vectors that will be updated based
+        on the given gradients and learning rate.
     gradients : dict
-        A dictionary of gradients for given parameters.
+        A dictionary of gradients for given parameters calculated by backward propagation.
 
     Returns
     -------
     parameters : dict
-        A dictionary of parameters updated with given gradients.
+        A dictionary of parameters updated with given gradients and learning rate.
     """
     L = len(parameters) // 2
 
@@ -219,9 +220,9 @@ def predict(parameters, X):
 
     Parameters
     ----------
-    parameters : list of tuple
-        A list of L tuples where each tuple has first element W (weight matrix) and second element
-        b (bias vector).
+    parameters : dict
+        A dictionary of parameters with weight matrices and bias vectors used to predict the output
+        of the given input examples X.
     X : np.ndarray
         The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
         of examples.
@@ -229,6 +230,6 @@ def predict(parameters, X):
     Returns
     -------
     predictions : np.ndarray
-        A vector of predictions by the model.
+        A vector of predictions by the model specified by the given parameters.
     """
     pass
