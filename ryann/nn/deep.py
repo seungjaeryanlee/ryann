@@ -108,8 +108,9 @@ def _forward_propagation(X, parameters):
     Y_computed : np.ndarray
         The model's classification with shape (n_y, m).
     cache : dict
-        A dictionary with 2L values, where L is the number of layers. Each layer l has Zl, the
-        result of the linear action, and Al, the result of the nonlinear activation function.
+        A dictionary with 3L values, where L is the number of layers. Each layer l has Zl, the
+        result of the linear action, Al, the result of the nonlinear activation function, and WL,
+        the weight matrix.
     """
     L = len(parameters) // 2 # Number of layers
     cache = {}
@@ -123,6 +124,7 @@ def _forward_propagation(X, parameters):
         A = sigmoid(Z)
         cache['Z' + str(l)] = Z
         cache['A' + str(l)] = A
+        cache['W' + str(l)] = W
 
     return A, cache
 
