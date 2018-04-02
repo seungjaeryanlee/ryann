@@ -79,7 +79,7 @@ def _initialize_parameters(layer_dims, variance=0.01):
         a normalized distribution with small variance to break symmetry, and the bias vectors are
         initialized as zero vectors.
     """
-    parameters = [(0, 0)] # One added for W0, b0 (not used but useful for spacing)
+    parameters = {}
     L = len(layer_dims)  # Number of layers
 
     for l in range(1, L):
