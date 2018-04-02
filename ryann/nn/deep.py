@@ -60,7 +60,7 @@ def train(X, Y, layer_dims, num_iter):
     return parameters, costs
 
 
-def _initialize_parameters(layer_dims):
+def _initialize_parameters(layer_dims, variance=0.01):
     """
     Initializes the parameters (weight matrices and bias vectors) based on given layer dimensions.
 
@@ -83,7 +83,7 @@ def _initialize_parameters(layer_dims):
     L = len(layer_dims)  # Number of layers
 
     for l in range(1, L):
-        W = np.random.randn(layer_dims[l], layer_dims[l-1])
+        W = np.random.randn(layer_dims[l], layer_dims[l-1]) * variance
         b = np.zeros((layer_dims[l], 1))
         parameters.append((W, b))
 
