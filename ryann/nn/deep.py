@@ -174,7 +174,7 @@ def _backward_propagation(cache, Y_computed, Y):
         dAl, dWl, dbl.
     """
     gradients = {}
-    L = len(cache) // 2
+    L = len(cache) // 3
     m = Y_computed.shape[1]
 
     # Calculate gradient of last activation: Y_computed
