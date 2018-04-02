@@ -140,7 +140,12 @@ def _compute_cost(Y_computed, Y):
     cost : float
         The cross-entropy cost.
     """
-    pass
+    m = Y.shape[1]
+
+    cost = -1 / m * np.sum(Y * np.log(Y_computed) + (1 - Y) * np.log(1 - Y_computed))
+    cost = np.squeeze(cost)
+
+    return cost
 
 
 def _backward_propagation(parameters, cache, X, Y):
