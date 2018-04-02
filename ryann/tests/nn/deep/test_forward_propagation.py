@@ -19,7 +19,7 @@ def test_nn_deep_forward_propagation_dimension():
 
     assert Y_computed.shape == (layer_dims[-1], m)
 
-    assert len(cache) == L
+    assert len(cache) == 3 * L
     for l in range(1, L):
         assert cache[l][0].shape == (layer_dims[l], m) # Z
         assert cache[l][1].shape == (layer_dims[l], m) # A
