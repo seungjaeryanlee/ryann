@@ -83,9 +83,8 @@ def _initialize_parameters(layer_dims, variance=0.01):
     L = len(layer_dims)  # Number of layers
 
     for l in range(1, L):
-        W = np.random.randn(layer_dims[l], layer_dims[l-1]) * variance
-        b = np.zeros((layer_dims[l], 1))
-        parameters.append((W, b))
+        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) * variance
+        parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
 
     return parameters
 
