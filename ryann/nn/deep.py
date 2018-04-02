@@ -116,7 +116,7 @@ def _forward_propagation(X, parameters):
     cache = {}
     A = X # A0
 
-    for l in range(1, L):
+    for l in range(1, L + 1):
         W = parameters['W' + str(l)]
         b = parameters['b' + str(l)]
 
