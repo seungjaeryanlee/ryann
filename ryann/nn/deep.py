@@ -148,7 +148,7 @@ def _compute_cost(Y_computed, Y):
     return cost
 
 
-def _backward_propagation(parameters, cache, X, Y):
+def _backward_propagation(parameters, cache, Y_computed, Y):
     """
     Runs backward propagation on given parameters using cached values, X, and Y.
 
@@ -160,18 +160,31 @@ def _backward_propagation(parameters, cache, X, Y):
     cache : list of tuple
         A list of tuples with L tuples with first element of tuple being Z (the matrix product) and
         the second element being A (the activation).
-    X : np.ndarray
-        The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
-        of examples.
+    Y_computed : np.ndarray
+        The sigmoid output of the neural network with shape (n_y, m).
     Y : np.ndarray
         The matrix with correct labels with shape (n_y, m).
 
     Returns
     -------
-    grads : dict
+    gradients : dict
         A dictionary of gradients with respect to given parameters.
     """
-    pass
+    gradients = {}
+    L = len(parameters) // 2
+    m = Y_computed.shape[1]
+
+    # Calculate gradient of last activation: Y_computed
+    dAL = Y / Y_computed - (1 - Y) / (1 - Y_computed)
+
+    # from L-1 to 0:
+    for l in reversed(range(L)):
+        dA_prev, dW, db = _backward_propagation_step()
+        gradients['dA' + str(l)] = dA_prev
+        gradients['dW' + str(l + 1)] = dW
+        gradients['db' + str(l + 1)] = db
+
+    return gradients
 
 
 def _update_parameters(parameters, gradients, learning_rate=0.01):
