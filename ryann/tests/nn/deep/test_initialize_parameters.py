@@ -12,8 +12,9 @@ def test_nn_deep_initialize_parameters_length():
     """
     layer_dims = np.random.randint(1, 10, 5)
     params = deep._initialize_parameters(layer_dims)
+    L = len(layer_dims) - 1
 
-    assert len(params) == 2 * len(layer_dims)
+    assert len(params) == 2 * L
 
 
 def test_nn_deep_initialize_parameters_dimensions():

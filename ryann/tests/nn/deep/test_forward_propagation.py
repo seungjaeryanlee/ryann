@@ -11,7 +11,7 @@ def test_nn_deep_forward_propagation_dimension():
     Checks the dimensions of output values of nn.deep._forward_propagation().
     """
     layer_dims = [5, 4, 3, 2, 1]
-    L = len(layer_dims)
+    L = len(layer_dims) - 1
     m = np.random.randint(10) + 1
     params = deep._initialize_parameters(layer_dims)
     X = np.zeros((layer_dims[0], m))

@@ -80,9 +80,8 @@ def _initialize_parameters(layer_dims, variance=0.01):
         initialized as zero vectors.
     """
     parameters = {}
-    L = len(layer_dims)  # Number of layers
 
-    for l in range(1, L):
+    for l in range(1, len(layer_dims)):
         parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) * variance
         parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
 
