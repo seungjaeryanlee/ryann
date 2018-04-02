@@ -242,9 +242,9 @@ def _update_parameters(parameters, gradients, learning_rate=0.01):
     """
     L = len(parameters) // 2
 
-    for l in range(L):
-        parameters[l][0] -= learning_rate * gradients['dW' + str(l + 1)]
-        parameters[l][1] -= learning_rate * gradients['db' + str(l + 1)]
+    for l in range(1, L + 1):
+        parameters['W' + str(l)] -= learning_rate * gradients['dW' + str(l)]
+        parameters['b' + str(l)] -= learning_rate * gradients['db' + str(l)]
 
     return parameters
 
