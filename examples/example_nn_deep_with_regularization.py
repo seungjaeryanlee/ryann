@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This file showcases the ryann.nn.deep module.
+This file showcases the ryann.nn.deep module with regularization enabled.
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,7 +22,7 @@ for i, x in enumerate(X.T):
 
 # 2) Train
 parameters, costs = deep.train(X, Y, layers=[2, 2, 2, 1], num_iter=10000, learning_rate=0.01,
-                               regularization=False)
+                               regularization=True, lambd=0.0001)
 
 # 3) Compute and Plot Decision Boundary
 x1_pts = np.arange(-5, 5, 0.01)
