@@ -12,7 +12,7 @@ def test_nn_deep_backward_propagation_gradient_checking():
     Test output of nn.deep._backward_propagation() with Gradient Checking. Gradient Checking is a
     method of manually computing derivatives and comparing it with the output.
     """
-    layers = np.random.randint(2, 5, 5)
+    layers = np.random.randint(10, 20, np.random.randint(5, 10))
     layer_dims, activations = deep._split_layer_dims_activations(layers)
     m = np.random.randint(1, 10)
     X = np.random.randn(layer_dims[0], m)
@@ -42,16 +42,24 @@ def test_nn_deep_backward_propagation_gradient_checking():
 
             # Estimate gradient
             estimated_gradient = (cost_plus - cost_minus) / (2 * epsilon)
+            gradient = gradients['d' + str(key)][index]
             difference = abs(estimated_gradient - gradients['d' + str(key)][index])
+
+            # Relative Error: http://cs231n.github.io/neural-networks-3/
+            if max(gradient, estimated_gradient) != 0:
+                relative_error = np.abs(gradient - estimated_gradient) \
+                                 / max(gradient, estimated_gradient)
+            else:
+                relative_error = np.abs(gradient - estimated_gradient)
 
             print('Parameter         : ' + key)
             print('index             : ' + str(index))
-            print('Backpropagation   : ' + str(gradients['d' + str(key)][index]))
+            print('Backpropagation   : ' + str(gradient))
             print('Gradient Checking : ' + str(estimated_gradient))
-            print('Difference        : ' + str(difference))
+            print('Relative Error    : ' + str(relative_error))
             print()
 
-            assert_almost_equal(estimated_gradient, gradients['d' + str(key)][index])
+            assert relative_error < 10 ** -7
 
             # Reset parameter
             parameter[index] = element
