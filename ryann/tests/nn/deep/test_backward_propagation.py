@@ -49,9 +49,9 @@ def test_nn_deep_backward_propagation_gradient_checking_sigmoid():
             gradient = gradients['d' + str(key)][index]
 
             # Relative Error: http://cs231n.github.io/neural-networks-3/
-            if max(gradient, estimated_gradient) != 0:
+            if np.abs(gradient) != 0 or np.abs(estimated_gradient) != 0:
                 relative_error = np.abs(gradient - estimated_gradient) \
-                                 / max(gradient, estimated_gradient)
+                                 / max(np.abs(gradient), np.abs(estimated_gradient))
             else:
                 relative_error = np.abs(gradient - estimated_gradient)
 
@@ -108,9 +108,9 @@ def test_nn_deep_backward_propagation_gradient_checking_relu():
             gradient = gradients['d' + str(key)][index]
 
             # Relative Error: http://cs231n.github.io/neural-networks-3/
-            if max(gradient, estimated_gradient) != 0:
+            if np.abs(gradient) != 0 or np.abs(estimated_gradient) != 0:
                 relative_error = np.abs(gradient - estimated_gradient) \
-                                 / max(gradient, estimated_gradient)
+                                 / max(np.abs(gradient), np.abs(estimated_gradient))
             else:
                 relative_error = np.abs(gradient - estimated_gradient)
 
