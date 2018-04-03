@@ -17,7 +17,7 @@ def test_nn_deep_compute_cost_with_regularization_no_lambd():
 
     Y = np.random.randint(0, 2, size=(1, m))
     Y_computed = np.abs(Y - epsilon)
-    parameters = { 'W1': np.random.randn(1, 3), 'b1': np.random.randn(1, m) }
+    parameters = {'W1': np.random.randn(1, 3), 'b1': np.random.randn(1, m)}
     cost = deep._compute_cost(Y_computed, Y)
     regularized_cost = deep._compute_cost_with_regularization(Y_computed, Y, parameters, 0)
 
@@ -39,7 +39,7 @@ def test_nn_deep_compute_cost_with_regularization_higher_than_without():
 
     Y = np.random.randint(0, 2, size=(1, m))
     Y_computed = np.abs(Y - epsilon)
-    parameters = { 'W1': np.random.randn(1, 3), 'b1': np.random.randn(1, m) }
+    parameters = {'W1': np.random.randn(1, 3), 'b1': np.random.randn(1, m)}
     cost = deep._compute_cost(Y_computed, Y)
     regularized_cost = deep._compute_cost_with_regularization(Y_computed, Y, parameters, 0.001)
 

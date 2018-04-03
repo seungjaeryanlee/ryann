@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, too-many-arguments, too-many-locals
 """
 Defines a deep neural network model.
 """
@@ -242,8 +242,8 @@ def _compute_cost_with_regularization(Y_computed, Y, parameters, lambd):
 
     cost = _compute_cost(Y_computed, Y)
 
-    sum = np.sum([ np.sum(parameter ** 2) for _, parameter in parameters.items() ])
-    regularization_cost = lambd / (2 * m) * sum
+    regularization_sum = np.sum([np.sum(parameter ** 2) for _, parameter in parameters.items()])
+    regularization_cost = lambd / (2 * m) * regularization_sum
 
     return cost + regularization_cost
 
