@@ -27,7 +27,7 @@ def test_nn_deep_backward_propagation_gradient_checking_sigmoid():
     gradients = deep._backward_propagation(cache, Y_computed, Y, activations)
 
     # 2) Compute gradients manually
-    epsilon = 10**-8
+    epsilon = 10**-6
     for key, parameter in parameters.items():
 
         if key[0] == 'W':
@@ -61,7 +61,7 @@ def test_nn_deep_backward_propagation_gradient_checking_sigmoid():
             print('Relative Error    : ' + str(relative_error))
             print()
 
-            assert relative_error < 10 ** -7
+            assert relative_error < 10 ** -4
 
             # Reset parameter
             parameter[index] = element
@@ -86,7 +86,7 @@ def test_nn_deep_backward_propagation_gradient_checking_relu():
     gradients = deep._backward_propagation(cache, Y_computed, Y, activations)
 
     # 2) Compute gradients manually
-    epsilon = 10**-8
+    epsilon = 10**-6
     for key, parameter in parameters.items():
 
         if key[0] == 'W':
