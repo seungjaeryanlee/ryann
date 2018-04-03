@@ -16,9 +16,11 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
         of examples.
     Y : np.ndarray
         The labels for each input column with shape (1, m).
-    layers : list of dict
+    layers : list of dict or list of int
         The list of dictionaries specifying the number of hidden units and activation function for
-        each hidden layer.
+        each hidden layer or a list of ints specifying the number of hidden units. By default this
+        model uses ReLU activation function for all layers except the last layer where it uses
+        the sigmoid activation function.
     num_iter
         Number of times to run gradient descent.
     learning_rate : float
@@ -33,8 +35,18 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
     costs : list
         A list of costs where costs[i] denotes the cost after i * 1000 iterations.
     """
-    layer_dims = [layer['units'] for layer in layers]
-    activations = [layer['activation'] for layer in layers]
+    assert isinstance(layers, (list,))
+    assert len(layers) >= 2
+
+    if isinstance(layers[0], int): # Activations not specified
+        layer_dims = layers
+        activations = ['relu'] * len(layer_dims)
+        activations[-1] = 'sigmoid'
+    else:
+        layer_dims = [layer['units'] for layer in layers]
+        activations = [layer['activation'] for layer in layers]
+
+    print(activations)
 
     assert X.shape[1] == Y.shape[1]
     assert X.shape[0] == layer_dims[0]
