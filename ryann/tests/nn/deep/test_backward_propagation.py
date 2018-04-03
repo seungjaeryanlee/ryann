@@ -3,7 +3,6 @@
 Tests the function nn.deep._backward_propagation().
 """
 import numpy as np
-from numpy.testing import assert_almost_equal
 from ryann.nn import deep
 
 
@@ -14,9 +13,9 @@ def test_nn_deep_backward_propagation_gradient_checking_sigmoid():
     computing derivatives and comparing it with the output.
     """
     layers = []
-    for i in range(np.random.randint(5, 10)):
-        layers.append({ 'units': np.random.randint(10, 20) , 'activation': 'sigmoid' })
-    layers.append({ 'units': 1, 'activation': 'sigmoid' })
+    for _ in range(np.random.randint(5, 10)):
+        layers.append({'units': np.random.randint(10, 20), 'activation': 'sigmoid'})
+    layers.append({'units': 1, 'activation': 'sigmoid'})
     layer_dims, activations = deep._split_layer_dims_activations(layers)
     m = np.random.randint(1, 10)
     X = np.random.randn(layer_dims[0], m)
