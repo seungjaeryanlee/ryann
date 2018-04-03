@@ -11,7 +11,6 @@ def test_nn_deep_forward_propagation_yhat_shape():
     Checks the shape of the computed Y value of nn.deep._forward_propagation().
     """
     layer_dims = np.random.randint(1, 10, 5)
-    L = len(layer_dims) - 1
     m = np.random.randint(10) + 1
     params = deep._initialize_parameters(layer_dims)
     X = np.zeros((layer_dims[0], m))
@@ -43,7 +42,7 @@ def test_nn_deep_forward_propagation_cache_dimension():
     m = np.random.randint(10) + 1
     params = deep._initialize_parameters(layer_dims)
     X = np.zeros((layer_dims[0], m))
-    Y_computed, cache = deep._forward_propagation(X, params)
+    _, cache = deep._forward_propagation(X, params)
 
     for l in range(1, L):
         assert cache['Z' + str(l)].shape == (layer_dims[l], m) # Z

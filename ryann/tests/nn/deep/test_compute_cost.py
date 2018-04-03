@@ -1,4 +1,4 @@
-# pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access
+# pylint: disable=no-self-use, too-few-public-methods, invalid-name, protected-access, duplicate-code
 """
 Tests the function nn.deep._compute_cost().
 """
@@ -7,7 +7,7 @@ from numpy.testing import assert_almost_equal
 from ryann.nn import deep
 
 
-def test_nn_compute_cost_close():
+def test_nn_deep_compute_cost_close():
     """
     Check that nn.deep._compute_cost() returns close to zero if Y_computed is close to Y.
     """
@@ -25,7 +25,7 @@ def test_nn_compute_cost_close():
     assert_almost_equal(cost, 0)
 
 
-def test_nn_compute_cost_half():
+def test_nn_deep_compute_cost_half():
     """
     Check that nn.deep._compute_cost() returns - log(0.5) if Y_computed is all 0.5.
     """
