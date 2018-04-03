@@ -49,7 +49,7 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
     # 2. Run gradient descent num_iter times
     for i in range(0, num_iter):
         # 2-1. Forward Propagation
-        Y_computed, cache = _forward_propagation(X, parameters)
+        Y_computed, cache = _forward_propagation(X, parameters, activations)
 
         # 2-2. Compute cost
         cost = _compute_cost(Y_computed, Y)
@@ -131,7 +131,7 @@ def _initialize_parameters(layer_dims, variance=0.01):
     return parameters
 
 
-def _forward_propagation(X, parameters):
+def _forward_propagation(X, parameters, activations):
     """
     Runs forward propagation from given parameters and input matrix X to compute the model's
     predictions.
@@ -144,6 +144,8 @@ def _forward_propagation(X, parameters):
     parameters : dict
         A dictionary of initialized parameters with weight matrices and bias vectors used for
         forward propagation.
+    activations : list of str
+        A list of names of activation functions to use for each layer.
 
     Returns
     -------
@@ -165,7 +167,13 @@ def _forward_propagation(X, parameters):
         b = parameters['b' + str(l)]
 
         Z = np.dot(W, A) + b
-        A = sigmoid(Z)
+        if activations[l] == 'relu':
+            A = relu(Z)
+        elif activations[l] == 'sigmoid':
+            A = sigmoid(Z)
+        else:
+            raise ValueError('Only sigmoid and relu activations are supported.')
+
         cache['Z' + str(l)] = Z
         cache['A' + str(l)] = A
         cache['W' + str(l)] = W
@@ -295,7 +303,7 @@ def _update_parameters(parameters, gradients, learning_rate):
     return parameters
 
 
-def predict(parameters, X):
+def predict(parameters, activations, X):
     """
     Returns predictions on given training examples X using given parameters.
 
@@ -304,6 +312,8 @@ def predict(parameters, X):
     parameters : dict
         A dictionary of parameters with weight matrices and bias vectors used to predict the output
         of the given input examples X.
+    activations : list of str
+        A list of names of activation functions to use for each layer.
     X : np.ndarray
         The input matrix with shape (n_x, m) where n_x is the number of features and m is the number
         of examples.
@@ -313,6 +323,6 @@ def predict(parameters, X):
     predictions : np.ndarray
         A vector of predictions by the model specified by the given parameters.
     """
-    A, _ = _forward_propagation(X, parameters)
+    A, _ = _forward_propagation(X, parameters, activations)
 
     return (A > 0.5).astype(int)
