@@ -103,9 +103,10 @@ def _split_layer_dims_activations(layers):
     return layer_dims, activations
 
 
-def _initialize_parameters(layer_dims, variance=0.01):
+def _initialize_parameters(layer_dims):
     """
     Initializes the parameters (weight matrices and bias vectors) based on given layer dimensions.
+    Uses He initialization.
 
     Parameters
     ----------
@@ -125,6 +126,7 @@ def _initialize_parameters(layer_dims, variance=0.01):
     parameters = {}
 
     for l in range(1, len(layer_dims)):
+        variance = np.sqrt(2 / layer_dims[l-1]) # He initialization
         parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l-1]) * variance
         parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
 
