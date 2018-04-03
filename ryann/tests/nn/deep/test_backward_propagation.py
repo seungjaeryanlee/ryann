@@ -12,7 +12,7 @@ def test_nn_deep_backward_propagation_gradient_checking():
     Test output of nn.deep._backward_propagation() with Gradient Checking. Gradient Checking is a
     method of manually computing derivatives and comparing it with the output.
     """
-    layers = np.random.randint(1, 10, 5)
+    layers = np.random.randint(1, 2, 5)
     layer_dims, activations = deep._split_layer_dims_activations(layers)
     m = np.random.randint(1, 10)
     X = np.random.randn(layer_dims[0], m)
