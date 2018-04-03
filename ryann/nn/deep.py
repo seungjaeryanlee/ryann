@@ -35,16 +35,7 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
     costs : list
         A list of costs where costs[i] denotes the cost after i * 1000 iterations.
     """
-    assert isinstance(layers, (list,))
-    assert len(layers) >= 2
-
-    if isinstance(layers[0], int): # Activations not specified
-        layer_dims = layers
-        activations = ['relu'] * len(layer_dims)
-        activations[-1] = 'sigmoid'
-    else:
-        layer_dims = [layer['units'] for layer in layers]
-        activations = [layer['activation'] for layer in layers]
+    layer_dims, activations = _split_layer_dims_activations(layers)
 
 
     assert X.shape[1] == Y.shape[1]
@@ -75,6 +66,41 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
             costs.append(cost)
 
     return parameters, costs
+
+
+def _split_layer_dims_activations(layers):
+    """
+    Splits given list (layers) to two lists layer_dims and activations.
+
+    Parameters
+    ----------
+    layers : list of dict or list of int
+        The list of dictionaries specifying the number of hidden units and activation function for
+        each hidden layer or a list of ints specifying the number of hidden units. By default this
+        model uses ReLU activation function for all layers except the last layer where it uses
+        the sigmoid activation function.
+
+    Returns
+    -------
+    layer_dims : list of int
+        The list of units of each layer specified by the given list layers.
+    activations: list of str
+        The list of activation functions. Same as the ones in the given list (layers) if it was
+        specified. Otherwise, the list adds ReLU functions for all layers except the output layer
+        where it uses sigmoid.
+    """
+    assert isinstance(layers, (list,))
+    assert len(layers) >= 2
+
+    if isinstance(layers[0], int):  # Activations not specified
+        layer_dims = layers
+        activations = ['relu'] * len(layer_dims)
+        activations[-1] = 'sigmoid'
+    else:
+        layer_dims = [layer['units'] for layer in layers]
+        activations = [layer['activation'] for layer in layers]
+
+    return layer_dims, activations
 
 
 def _initialize_parameters(layer_dims, variance=0.01):
