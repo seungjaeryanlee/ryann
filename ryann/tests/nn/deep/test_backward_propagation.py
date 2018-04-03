@@ -39,10 +39,13 @@ def test_nn_deep_backward_propagation_gradient_checking():
 
             # Estimate gradient
             estimated_gradient = (cost_plus - cost_minus) / (2 * epsilon)
+            difference = abs(estimated_gradient - gradients['d' + str(key)][index])
 
             print('Parameter         : ' + key)
             print('index             : ' + str(index))
             print('Backpropagation   : ' + str(gradients['d' + str(key)][index]))
             print('Gradient Checking : ' + str(estimated_gradient))
+            print('Difference        : ' + str(difference))
+            print()
 
             assert_almost_equal(estimated_gradient, gradients['d' + str(key)][index])
