@@ -46,7 +46,6 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
         layer_dims = [layer['units'] for layer in layers]
         activations = [layer['activation'] for layer in layers]
 
-    print(activations)
 
     assert X.shape[1] == Y.shape[1]
     assert X.shape[0] == layer_dims[0]

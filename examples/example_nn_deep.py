@@ -21,7 +21,7 @@ for i, x in enumerate(X.T):
 # plt.scatter(X[0, :], X[1, :], c=Y.reshape(m), cmap='coolwarm')
 
 # 2) Train
-parameters, costs = deep.train(X, Y, layer_dims=[2, 2, 2, 1], num_iter=10000, learning_rate=1)
+parameters, costs = deep.train(X, Y, layers=[2, 2, 2, 1], num_iter=10000, learning_rate=1)
 
 # 3) Compute and Plot Decision Boundary
 x1_pts = np.arange(-5, 5, 0.01)
