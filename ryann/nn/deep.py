@@ -6,7 +6,7 @@ import numpy as np
 
 from ryann.activation import sigmoid, sigmoid_derivative, relu, relu_derivative
 
-def train(X, Y, layer_dims, num_iter, learning_rate=0.01):
+def train(X, Y, layers, num_iter, learning_rate=0.01):
     """
 
     Parameters
@@ -16,8 +16,9 @@ def train(X, Y, layer_dims, num_iter, learning_rate=0.01):
         of examples.
     Y : np.ndarray
         The labels for each input column with shape (1, m).
-    layer_dims : list
-        The list of number of hidden units for each hidden layer.
+    layers : list of dict
+        The list of dictionaries specifying the number of hidden units and activation function for
+        each hidden layer.
     num_iter
         Number of times to run gradient descent.
     learning_rate : float
@@ -32,6 +33,9 @@ def train(X, Y, layer_dims, num_iter, learning_rate=0.01):
     costs : list
         A list of costs where costs[i] denotes the cost after i * 1000 iterations.
     """
+    layer_dims = [layer['units'] for layer in layers]
+    activations = [layer['activation'] for layer in layers]
+
     assert X.shape[1] == Y.shape[1]
     assert X.shape[0] == layer_dims[0]
     assert Y.shape[0] == layer_dims[-1]
