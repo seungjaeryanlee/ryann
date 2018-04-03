@@ -207,6 +207,37 @@ def _compute_cost(Y_computed, Y):
     return cost
 
 
+def _compute_cost_with_regularization(Y_computed, Y, parameters, lambd):
+    """
+    Computes the cross-entropy cost with L2 regularization.
+
+    Parameters
+    ----------
+    Y_computed : np.ndarray
+        The sigmoid output of the neural network with shape (n_y, m).
+    Y : np.ndarray
+        The matrix with correct labels with shape (n_y, m).
+    parameters : dict
+        A dictionary of initialized parameters with weight matrices and bias vectors used for
+        forward propagation.
+    lambd : float
+        The regularization constant. The higher lambd is, the simpler the model becomes.
+
+    Returns
+    -------
+    cost : float
+        The cross-entropy cost.
+    """
+    m = Y.shape[1]
+
+    cost = _compute_cost(Y_computed, Y)
+
+    sum = np.sum([ np.sum(parameter ** 2) for _, parameter in parameters.items() ])
+    regularization_cost = lambd / (2 * m) * sum
+
+    return cost + regularization_cost
+
+
 def _backward_propagation(cache, Y_computed, Y, activations):
     """
     Runs backward propagation on given parameters using cached values, X, and Y.
