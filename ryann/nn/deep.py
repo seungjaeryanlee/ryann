@@ -55,7 +55,7 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
         cost = _compute_cost(Y_computed, Y)
 
         # 2-3. Backpropagation
-        gradients = _backward_propagation(cache, Y_computed, Y)
+        gradients = _backward_propagation(cache, Y_computed, Y, activations)
 
         # 2-4. Update parameters
         parameters = _update_parameters(parameters, gradients, learning_rate)
@@ -205,7 +205,7 @@ def _compute_cost(Y_computed, Y):
     return cost
 
 
-def _backward_propagation(cache, Y_computed, Y):
+def _backward_propagation(cache, Y_computed, Y, activations):
     """
     Runs backward propagation on given parameters using cached values, X, and Y.
 
@@ -220,6 +220,8 @@ def _backward_propagation(cache, Y_computed, Y):
         The sigmoid output of the neural network with shape (n_y, m).
     Y : np.ndarray
         The matrix with correct labels with shape (n_y, m).
+    activations : list of str
+        A list of names of activation functions to use for each layer.
 
     Returns
     -------
@@ -236,7 +238,7 @@ def _backward_propagation(cache, Y_computed, Y):
 
     # from L to 1:
     for l in reversed(range(1, L + 1)):
-        dZ = _activation_backward(dA, cache['Z' + str(l)], 'sigmoid')
+        dZ = _activation_backward(dA, cache['Z' + str(l)], activations[l])
         A_prev = cache['A' + str(l - 1)]
         W = cache['W' + str(l)]
         gradients['dW' + str(l)] = 1 / m * np.dot(dZ, A_prev.T)
