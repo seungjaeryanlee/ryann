@@ -16,7 +16,7 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
         of examples.
     Y : np.ndarray
         The labels for each input column with shape (1, m).
-    layers : list of dict or list of int
+    layers : list of dict or list of int or numpy.ndarray
         The list of dictionaries specifying the number of hidden units and activation function for
         each hidden layer or a list of ints specifying the number of hidden units. By default this
         model uses ReLU activation function for all layers except the last layer where it uses
@@ -74,7 +74,7 @@ def _split_layer_dims_activations(layers):
 
     Parameters
     ----------
-    layers : list of dict or list of int
+    layers : list of dict or list of int or numpy.ndarray
         The list of dictionaries specifying the number of hidden units and activation function for
         each hidden layer or a list of ints specifying the number of hidden units. By default this
         model uses ReLU activation function for all layers except the last layer where it uses
@@ -89,10 +89,10 @@ def _split_layer_dims_activations(layers):
         specified. Otherwise, the list adds ReLU functions for all layers except the output layer
         where it uses sigmoid.
     """
-    assert isinstance(layers, (list,))
+    assert isinstance(layers, (list, np.ndarray))
     assert len(layers) >= 2
 
-    if isinstance(layers[0], int):  # Activations not specified
+    if isinstance(layers[0], (int, np.integer)):  # Activations not specified
         layer_dims = layers
         activations = ['relu'] * len(layer_dims)
         activations[-1] = 'sigmoid'
