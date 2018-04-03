@@ -1,21 +1,21 @@
-ryann package
-=============
+ryann\.nn package
+=================
 
 Submodules
 ----------
 
-ryann\.activation module
-------------------------
+ryann\.nn\.deep module
+----------------------
 
-.. automodule:: ryann.activation
+.. automodule:: ryann.nn.deep
     :members:
     :undoc-members:
     :show-inheritance:
 
-ryann\.index module
--------------------
+ryann\.nn\.shallow module
+-------------------------
 
-.. automodule:: ryann.index
+.. automodule:: ryann.nn.shallow
     :members:
     :undoc-members:
     :show-inheritance:
@@ -24,7 +24,7 @@ ryann\.index module
 Module contents
 ---------------
 
-.. automodule:: ryann
+.. automodule:: ryann.nn
     :members:
     :undoc-members:
     :show-inheritance:
