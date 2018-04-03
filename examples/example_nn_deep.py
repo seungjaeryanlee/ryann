@@ -28,7 +28,7 @@ x1_pts = np.arange(-5, 5, 0.01)
 x2_pts = np.arange(-5, 5, 0.01)
 x1_grid, x2_grid = np.meshgrid(x1_pts, x2_pts)
 X_grid = np.concatenate((x1_grid.reshape(1, -1), x2_grid.reshape(1, -1)))
-Z = deep.predict(parameters, X_grid)
+Z = deep.predict(parameters, ['relu', 'relu', 'relu', 'sigmoid'], X_grid)
 Z = Z.reshape((len(x1_pts), len(x2_pts)))
 
 plt.contourf(x1_grid, x2_grid, Z, cmap='coolwarm')
