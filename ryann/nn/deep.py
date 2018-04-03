@@ -6,8 +6,11 @@ import numpy as np
 
 from ryann.activation import sigmoid, sigmoid_derivative, relu, relu_derivative
 
-def train(X, Y, layers, num_iter, learning_rate=0.01):
+def train(X, Y, layers, num_iter, learning_rate=0.01, regularization=True, lambd=0.01):
     """
+    Trains the model given the training set X, Y using a neural network with specified layers. The
+    model iterates through the training set num_iter times with gradient descent with given learning
+    rate. By default it uses L2 regularization to prevent overfitting.
 
     Parameters
     ----------
@@ -52,10 +55,17 @@ def train(X, Y, layers, num_iter, learning_rate=0.01):
         Y_computed, cache = _forward_propagation(X, parameters, activations)
 
         # 2-2. Compute cost
-        cost = _compute_cost(Y_computed, Y)
+        if regularization:
+            cost = _compute_cost_with_regularization(Y_computed, Y, parameters, lambd)
+        else:
+            cost = _compute_cost(Y_computed, Y)
 
         # 2-3. Backpropagation
-        gradients = _backward_propagation(cache, Y_computed, Y, activations)
+        if regularization:
+            gradients = _backward_propagation_with_regularization(cache, Y_computed, Y, activations,
+                                                                  lambd)
+        else:
+            gradients = _backward_propagation(cache, Y_computed, Y, activations)
 
         # 2-4. Update parameters
         parameters = _update_parameters(parameters, gradients, learning_rate)
