@@ -12,15 +12,16 @@ def test_nn_deep_backward_propagation_gradient_checking():
     Test output of nn.deep._backward_propagation() with Gradient Checking. Gradient Checking is a
     method of manually computing derivatives and comparing it with the output.
     """
-    layer_dims = np.random.randint(1, 10, 5)
+    layers = np.random.randint(1, 10, 5)
+    layer_dims, activations = deep._split_layer_dims_activations(layers)
     m = np.random.randint(1, 10)
     X = np.random.randn(layer_dims[0], m)
     Y = np.random.randint(0, 2, size=(layer_dims[-1], m))
 
     # 1) Compute gradients with nn.deep._backward_propagation()
     parameters = deep._initialize_parameters(layer_dims)
-    Y_computed, cache = deep._forward_propagation(X, parameters)
-    gradients = deep._backward_propagation(cache, Y_computed, Y)
+    Y_computed, cache = deep._forward_propagation(X, parameters, activations)
+    gradients = deep._backward_propagation(cache, Y_computed, Y, activations)
 
     # 2) Compute gradients manually
     epsilon = 10**-8
@@ -28,12 +29,12 @@ def test_nn_deep_backward_propagation_gradient_checking():
         for index, element in np.ndenumerate(parameter):
             # Get J(..., x + e, ...)
             parameter[index] = element + epsilon
-            Y_computed, _ = deep._forward_propagation(X, parameters)
+            Y_computed, _ = deep._forward_propagation(X, parameters, activations)
             cost_plus = deep._compute_cost(Y_computed, Y)
 
             # Get J(..., x - e, ...)
             parameter[index] = element - epsilon
-            Y_computed, _ = deep._forward_propagation(X, parameters)
+            Y_computed, _ = deep._forward_propagation(X, parameters, activations)
             cost_minus = deep._compute_cost(Y_computed, Y)
 
             # Estimate gradient
